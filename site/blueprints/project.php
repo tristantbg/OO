@@ -27,14 +27,18 @@ fields:
     type:  date
     format: YYYY
     width: 1/4
-  subtitle:
-    label: Subtitle
-    type: text
-    width: 3/4
+  backcolor:
+      label: Background color
+      type: color
+      width: 1/3
+  textcolor:
+      label: Text color
+      type: color
+      width: 1/3
   featured:
     label: Featured image
     type: image
-    width: 1/4
+    width: 1/3
   text:
     label: Description
     type: textarea

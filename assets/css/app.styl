@@ -30,8 +30,8 @@ html
 	font-size 62.5%
 
 body
+	span(1)
 	transition(color)
-	display inline-block
 	text-rendering optimizeLegibility
 	font-smoothing()
 	font-size 2rem
@@ -140,32 +140,47 @@ a, a:hover, a:visited, a:focus
 				animation dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite
 
 #intro
-	position relative
+	position fixed
+	height 100vh
+	width 100%
+	top 0
+	left 0
 	transition(height, 1600ms, cubic-bezier(.72,0,.01,1))
 	overflow hidden
-	height 100vh
 	flexbox()
 	justify-content center
 	align-items center
 	cursor pointer
 	z-index 800
+	backface()
 	span
 		transition(font-size, 1400ms, cubic-bezier(.72,0,.01,1))
 		font-size 6vw
 		padding $padding
+		+below($md)
+			font-size 5rem
 
-#intro.hidden
-	height 0
-	span
-		font-size 3rem
-
-body.loaded
-	#container .inner
-		opacity 1
+body.intro-hidden
+	#intro
+		height 0
+		span
+			font-size 3rem
+	#wrapper
+		transform(none)
 
 body.loading
-	#container .inner
-		opacity 0
+	#container 
+		#slider
+			transform(translate3d(0,100%,0))
+		#project-description, #slide-caption
+			opacity 0
+
+body.loaded
+	#container
+		#slider
+			transform(translate3d(0,0%,0))
+		#project-description, #slide-caption
+			opacity 1
 
 header
 	flexbox()
@@ -204,7 +219,7 @@ header
 		h2
 			margin-bottom 0
 		#current-project
-			transition(background-color, 300ms, ease)
+			transition(background-color, 400ms, ease)
 			width 100%
 			position relative
 			padding $padding $padding 0 $padding
@@ -212,8 +227,9 @@ header
 			z-index 100
 			cursor s-resize
 		#project-list
-			transition(transform, 600ms)
+			transition(all, 600ms)
 			transform(translate3d(0,-100%,0))
+			visibility hidden
 			position absolute
 			width 100%
 			top $padding
@@ -225,25 +241,31 @@ header
 				overflow hidden
 		#project-list.is-visible
 			transform(translate3d(0,0%,0))
+			visibility visible
 	#project-select:hover
 		#project-list:not(.hidden)
 			transform(translate3d(0,0%,0))
+			visibility visible
 
 #wrapper
+	transition(transform, 1600ms, cubic-bezier(.72,0,.01,1))
+	position fixed
+	top 0
+	left 0
 	height 100vh
-	position relative
+	width 100%
+	transform(translate3d(0,100vh,0))
 
 #container
-	transition(background-color, 300ms, ease)
+	transition(background-color, 400ms, ease)
 	span(1)
 	height 100vh
 	position absolute
 	top 0
 	left 0
 	z-index 0
-	.inner
-		transition(opacity, 400ms)
 	#project-description, #slide-caption
+		transition(opacity, 400ms)
 		position absolute
 		bottom $padding
 		left $padding
@@ -255,6 +277,7 @@ header
 		right $padding
 
 #slider
+	transition(transform, 600ms)
 	height 100vh
 	width 100%
 	.cell
@@ -302,7 +325,7 @@ header
 	background $secondary
 	color $primary
 	z-index 200
-	cursor url('../../images/close.png') 8 8, default
+	cursor url('../../images/close-w.png') 8 8, default
 	+below($md)
 		width 100%
 	#infos
@@ -317,6 +340,7 @@ header
 	height 100%
 	top 0
 	left -100%
+	cursor url('../../images/close-b.png') 8 8, default
 	
 
 #about.visible

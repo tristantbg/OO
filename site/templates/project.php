@@ -7,13 +7,30 @@
 
 <div class="inner project">
 	
-	<div id="slider">
+	<div id="slider" 
+	<?php if($page->backcolor()->isNotEmpty()): ?>
+	data-backcolor="<?= $page->backcolor() ?>" 
+	<?php endif ?>
+	<?php if($page->textcolor()->isNotEmpty()): ?>
+	data-textcolor="<?= $page->textcolor() ?>"
+	<?php endif ?>
+	>
 
 	<?php foreach ($images as $key => $image): ?>
 
 		<?php $image = $image->toFile(); ?>
 
-		<div class="cell" data-caption="<?= $image->caption()->html() ?>" data-backcolor="<?= $image->backcolor() ?>" data-textcolor="<?= $image->textcolor() ?>">
+		<div class="cell" 
+		<?php if($image->caption()->isNotEmpty()): ?>
+		data-caption="<?= $image->caption()->html() ?>" 
+		<?php endif ?>
+		<?php if($image->backcolor()->isNotEmpty()): ?>
+		data-backcolor="<?= $image->backcolor() ?>" 
+		<?php endif ?>
+		<?php if($image->textcolor()->isNotEmpty()): ?>
+		data-textcolor="<?= $image->textcolor() ?>"
+		<?php endif ?>
+		>
 			<div class="content">
 				<img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-flickity-lazyload="<?= resizeOnDemand($image, 1700, true) ?>" alt="<?= $title.' - © '.$site->title()->html() ?>" height="100%" width="auto" />
 				<noscript>

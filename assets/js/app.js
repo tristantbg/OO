@@ -3,7 +3,7 @@ var width = $(window).width(),
     height = $(window).height(),
     isMobile = false,
     flkty,
-    $root = '/erwansene';
+    $root = '/oisin';
 $(function() {
     var app = {
         init: function() {
@@ -49,21 +49,15 @@ $(function() {
                 });
                 $('#intro').click(function(event) {
                     event.preventDefault();
-                    $(this).addClass('hidden');
+                    $body.addClass('intro-hidden');
                 });
                 $about.click(function(event) {
-                  $(this).removeClass('visible');
+                    $(this).removeClass('visible');
                 });
-                //esc
+                window.viewportUnitsBuggyfill.init();
                 $(document).keyup(function(e) {
                     if (e.keyCode === 27) app.goIndex();
-                });
-                //left
-                $(document).keyup(function(e) {
                     if (e.keyCode === 37 && $slider) app.goPrev($slider);
-                });
-                //right
-                $(document).keyup(function(e) {
                     if (e.keyCode === 39 && $slider) {
                         if (app.checkLastCell(flkty)) {
                             app.nextProject();
@@ -113,19 +107,31 @@ $(function() {
             });
             flkty = $slider.data('flickity');
             $caption = $('#slide-caption');
+            var mainbackcolor = $slider.attr('data-backcolor');
+            var maintextcolor = $slider.attr('data-maintextcolor');
             $slider.on('select.flickity', function() {
                 if (flkty) {
                     var slidecaption = $(flkty.selectedElement).attr('data-caption');
-                    if (typeof slidecaption !== typeof undefined && slidecaption !== false) {
+                    if (typeof slidecaption !== typeof undefined) {
                         $caption.html('<p>' + slidecaption + '</p>');
+                    } else {
+                        $caption.empty();
                     }
                     var backcolor = $(flkty.selectedElement).attr('data-backcolor');
-                    if (typeof backcolor == typeof undefined && backcolor == false && backcolor == "") {
-                        backcolor = '#fff';
+                    if (typeof backcolor !== typeof undefined) {} else {
+                        if (typeof mainbackcolor !== typeof undefined) {
+                            backcolor = mainbackcolor;
+                        } else {
+                            backcolor = '#fff';
+                        }
                     }
                     var textcolor = $(flkty.selectedElement).attr('data-textcolor');
-                    if (typeof textcolor == typeof undefined && textcolor == false && textcolor == "") {
-                        textcolor = '#000';
+                    if (typeof textcolor !== typeof undefined) {} else {
+                        if (typeof maintextcolor !== typeof undefined) {
+                            textcolor = maintextcolor;
+                        } else {
+                            textcolor = '#000';
+                        }
                     }
                     $current.css('background-color', backcolor);
                     $container.css('background-color', backcolor);
@@ -165,7 +171,7 @@ $(function() {
             }, $sitetitle, window.location.origin + $root);
         },
         loadContent: function(url, target) {
-            $body.addClass('loading');
+            $body.removeClass('loaded').addClass('loading');
             setTimeout(function() {
                 $body.scrollTop(0);
                 $(target).load(url + ' #container .inner', function(response) {
@@ -176,7 +182,7 @@ $(function() {
                         $body.removeClass('loading').addClass('loaded');
                     }, 100);
                 });
-            }, 400);
+            }, 600);
         },
         deferImages: function() {
             var imgDefer = document.getElementsByTagName('img');

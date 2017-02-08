@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         concat: {
             plugins: {
-                src: ['site/plugins/oembed/assets/js/oembed.js', 'node_modules/flickity/dist/flickity.pkgd.min.js', 'lib/history.js/scripts/bundled/html4+html5/jquery.history.js'],
+                src: ['site/plugins/oembed/assets/js/oembed.js', 'lib/viewport-units-buggyfill/viewport-units-buggyfill.js', 'node_modules/flickity/dist/flickity.pkgd.min.js', 'lib/history.js/scripts/bundled/html4+html5/jquery.history.js'],
                 dest: 'assets/js/plugins.concat.js'
             },
             js: {
