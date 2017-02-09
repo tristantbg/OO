@@ -58,6 +58,14 @@
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="<?= url('assets/js/vendor/jquery.min.js') ?>">\x3C/script>')</script>
+	<style>
+		body, #loader, #intro {
+			background-color:<?= $site->introbackground() ?>;
+		}
+		#intro {
+			color:<?= $site->introtext() ?>;
+		}
+	</style>
 
 	<?php if(!$site->customcss()->empty()): ?>
 		<style type="text/css">
@@ -68,7 +76,7 @@
 </head>
 <body>
 
-<div id="loader" style="background-color:<?= $site->introbackground() ?>;">
+<div id="loader">
 	<!-- <div class="spinner">
 		<svg class="circular" viewBox="25 25 50 50">
 		<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="1" stroke-miterlimit="10" style="stroke:<?= $site->introtext() ?>;"></circle>
@@ -76,8 +84,12 @@
 	</div> -->
 </div>
 
-<div id="intro" style="background:<?= $site->introbackground() ?>; color:<?= $site->introtext() ?>;">
+<div id="intro">
+	<?php if($site->introtitle()->isNotEmpty()): ?>
+	<span><?= $site->introtitle()->html() ?></span>
+	<?php else: ?>
 	<span><?= $site->title()->html() ?></span>
+	<?php endif ?>
 </div>
 
 <div id="wrapper">

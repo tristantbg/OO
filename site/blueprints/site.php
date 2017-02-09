@@ -5,6 +5,9 @@ fields:
   introSettings:
     label: Intro Settings
     type: headline
+  introtitle:
+    label: Intro text
+    type:  text
   introbackground:
     label: Intro background
     type:  color

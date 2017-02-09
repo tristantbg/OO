@@ -22,7 +22,7 @@
 
 		<div class="cell" 
 		<?php if($image->caption()->isNotEmpty()): ?>
-		data-caption="<?= $image->caption()->html() ?>" 
+		data-caption="<?= $image->caption()->kt()->escape() ?>" 
 		<?php endif ?>
 		<?php if($image->backcolor()->isNotEmpty()): ?>
 		data-backcolor="<?= $image->backcolor() ?>" 

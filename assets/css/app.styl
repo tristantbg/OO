@@ -170,16 +170,12 @@ body.intro-hidden
 
 body.loading
 	#container 
-		#slider
-			transform(translate3d(0,100%,0))
-		#project-description, #slide-caption
+		.inner
 			opacity 0
 
 body.loaded
 	#container
-		#slider
-			transform(translate3d(0,0%,0))
-		#project-description, #slide-caption
+		.inner
 			opacity 1
 
 header
@@ -214,6 +210,7 @@ header
 			width 3.3em
 	#project-select
 		width 33%
+		font-size 3rem
 		+below($md)
 			width 65%
 		h2
@@ -227,7 +224,7 @@ header
 			z-index 100
 			cursor s-resize
 		#project-list
-			transition(all, 600ms)
+			transition(all, 800ms)
 			transform(translate3d(0,-100%,0))
 			visibility hidden
 			position absolute
@@ -264,8 +261,9 @@ header
 	top 0
 	left 0
 	z-index 0
+	.inner
+		transition(opacity, 300ms)
 	#project-description, #slide-caption
-		transition(opacity, 400ms)
 		position absolute
 		bottom $padding
 		left $padding
@@ -277,7 +275,6 @@ header
 		right $padding
 
 #slider
-	transition(transform, 600ms)
 	height 100vh
 	width 100%
 	.cell

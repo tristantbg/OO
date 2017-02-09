@@ -14,7 +14,7 @@
 
 		<?php $image = $image->toFile(); ?>
 
-		<div class="cell" data-caption="<?= $image->caption()->html() ?>" data-backcolor="<?= $image->backcolor() ?>" data-textcolor="<?= $image->textcolor() ?>">
+		<div class="cell" data-caption="<?= $image->caption()->kt()->escape() ?>" data-backcolor="<?= $image->backcolor() ?>" data-textcolor="<?= $image->textcolor() ?>">
 			<div class="content">
 				<img class="lazy" src="<?= resizeOnDemand($image, 100) ?>" data-flickity-lazyload="<?= resizeOnDemand($image, 1700, true) ?>" alt="<?= $title.' - © '.$site->title()->html() ?>" height="100%" width="auto" />
 				<noscript>

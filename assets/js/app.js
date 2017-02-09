@@ -113,7 +113,7 @@ $(function() {
                 if (flkty) {
                     var slidecaption = $(flkty.selectedElement).attr('data-caption');
                     if (typeof slidecaption !== typeof undefined) {
-                        $caption.html('<p>' + slidecaption + '</p>');
+                        $caption.html(slidecaption);
                     } else {
                         $caption.empty();
                     }
@@ -182,7 +182,7 @@ $(function() {
                         $body.removeClass('loading').addClass('loaded');
                     }, 100);
                 });
-            }, 600);
+            }, 300);
         },
         deferImages: function() {
             var imgDefer = document.getElementsByTagName('img');
