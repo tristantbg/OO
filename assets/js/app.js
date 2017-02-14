@@ -2,6 +2,7 @@
 var width = $(window).width(),
     height = $(window).height(),
     isMobile = false,
+    content,
     flkty,
     $root = '/oisin';
 $(function() {
@@ -10,6 +11,7 @@ $(function() {
             $(window).resize(function(event) {});
             $(document).ready(function($) {
                 $body = $('body');
+                $header = $('header');
                 $container = $('#container');
                 $current = $('#current-project');
                 $projectList = $('#project-list');
@@ -18,7 +20,7 @@ $(function() {
                 History.Adapter.bind(window, 'statechange', function() {
                     var State = History.getState();
                     console.log(State);
-                    var content = State.data;
+                    content = State.data;
                     // if (content.type == 'index') {
                     //     app.loadContent(State.url, $container);
                     // }
@@ -31,14 +33,10 @@ $(function() {
                     e.preventDefault();
                     if (target == "project") {
                         $projectList.addClass('hidden');
-                        setTimeout(function() {
-                            $current.html($el.find('.project-title').html());
-                            $('.project-link').removeClass('active');
-                            $el.parent().addClass('active');
-                            $projectList.removeClass('hidden');
-                        }, 600);
                         History.pushState({
-                            type: 'project'
+                            type: 'project',
+                            title: $el.find('.project-title').html(),
+                            id: $el.data('id')
                         }, $el.data('title') + " | " + $sitetitle, $el.attr('href'));
                     } else if (target == "about") {
                         $about.addClass('visible');
@@ -47,9 +45,25 @@ $(function() {
                         app.goIndex();
                     }
                 });
+                $body.on('touchend', '#current-project', function(event) {
+                    if (isMobile) {
+                        event.preventDefault();
+                        $header.addClass('mobile-open');
+                    }
+                });
+                var intro = true;
                 $('#intro').click(function(event) {
                     event.preventDefault();
                     $body.addClass('intro-hidden');
+                });
+                $(document).bind('mousewheel', function(evt) {
+                    if (intro) {
+                        var delta = evt.originalEvent.wheelDelta;
+                        if (delta < -10) {
+                            $body.addClass('intro-hidden');
+                            intro = false;
+                        }
+                    }
                 });
                 $about.click(function(event) {
                     $(this).removeClass('visible');
@@ -108,7 +122,7 @@ $(function() {
             flkty = $slider.data('flickity');
             $caption = $('#slide-caption');
             var mainbackcolor = $slider.attr('data-backcolor');
-            var maintextcolor = $slider.attr('data-maintextcolor');
+            var maintextcolor = $slider.attr('data-textcolor');
             $slider.on('select.flickity', function() {
                 if (flkty) {
                     var slidecaption = $(flkty.selectedElement).attr('data-caption');
@@ -166,8 +180,11 @@ $(function() {
             $slider.flickity('previous', false);
         },
         goIndex: function() {
+            var $first = $('#project-list .project-link').first();
             History.pushState({
-                type: 'index'
+                type: 'index',
+                title: $first.find('.project-title').html(),
+                id: $first.data('id')
             }, $sitetitle, window.location.origin + $root);
         },
         loadContent: function(url, target) {
@@ -176,9 +193,19 @@ $(function() {
                 $body.scrollTop(0);
                 $(target).load(url + ' #container .inner', function(response) {
                     setTimeout(function() {
-                        if ($('#container .inner').hasClass('project')) {
-                            app.loadSlider();
+                        app.loadSlider();
+                        if (typeof content.type == typeof undefined) {
+                            var $first = $('#project-list .project-link').first();
+                            content.title = $first.find('.project-title').html();
+                            content.id = $first.data('id');
                         }
+                        setTimeout(function() {
+                            $current.html(content.title);
+                            $('.project-link').removeClass('active');
+                            $('[data-id="' + content.id + '"]').parent().addClass('active');
+                            $projectList.removeClass('hidden');
+                        }, 200);
+                        $header.removeClass('mobile-open');
                         $body.removeClass('loading').addClass('loaded');
                     }, 100);
                 });

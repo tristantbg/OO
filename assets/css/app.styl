@@ -16,6 +16,7 @@ $accent ?= #ff0000
 // Metrics
 $top = 13vh
 $padding = 3rem
+$paddingMobile = ($padding/2)
 $zIndex = 100
 
 // CSS Reset
@@ -86,26 +87,26 @@ a, a:hover, a:visited, a:focus
 //     }
 // }
 
-@keyframes rotate {
-    100% {
-        transform(rotate(360deg))
-    }
-}
+// @keyframes rotate {
+//     100% {
+//         transform(rotate(360deg))
+//     }
+// }
 
-@keyframes dash {
-    0% {
-        stroke-dasharray: 1, 200;
-        stroke-dashoffset: 0
-    }
-    30% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -35px
-    }
-    100% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -124px
-    }
-}
+// @keyframes dash {
+//     0% {
+//         stroke-dasharray: 1, 200;
+//         stroke-dashoffset: 0
+//     }
+//     30% {
+//         stroke-dasharray: 89, 200;
+//         stroke-dashoffset: -35px
+//     }
+//     100% {
+//         stroke-dasharray: 89, 200;
+//         stroke-dashoffset: -124px
+//     }
+// }
 
 #loader
 	overflow hidden
@@ -158,13 +159,16 @@ a, a:hover, a:visited, a:focus
 		font-size 6vw
 		padding $padding
 		+below($md)
-			font-size 5rem
+			font-size 2rem !important
+		+below($sm)
+			padding $paddingMobile
 
 body.intro-hidden
 	#intro
 		height 0
 		span
-			font-size 3rem
+			+above($md + 1)
+				font-size 3rem
 	#wrapper
 		transform(none)
 
@@ -187,6 +191,8 @@ header
 		position relative
 		padding $padding $padding 0 $padding
 		z-index 100
+		+below($sm)
+			padding $paddingMobile $paddingMobile 0 $paddingMobile
 		span
 			transition(width, 800ms, ease)
 			display inline-block
@@ -210,19 +216,25 @@ header
 			width 3.3em
 	#project-select
 		width 33%
-		font-size 3rem
+		+above($sm + 1)
+			font-size 3rem
+		+below($sm)
+			font-size 2rem
 		+below($md)
-			width 65%
+			width 80%
 		h2
 			margin-bottom 0
 		#current-project
 			transition(background-color, 400ms, ease)
 			width 100%
 			position relative
-			padding $padding $padding 0 $padding
+			padding $padding 0 0 $padding
 			background $primary
 			z-index 100
 			cursor s-resize
+			white-space nowrap
+			+below($sm)
+				padding $paddingMobile 0 0 $paddingMobile
 		#project-list
 			transition(all, 800ms)
 			transform(translate3d(0,-100%,0))
@@ -233,6 +245,13 @@ header
 			left $padding
 			padding-top 1em
 			z-index 50
+			+below($md)
+				transition(none)
+			+below($sm)
+				top $paddingMobile
+				left $paddingMobile
+			.project-link
+				white-space nowrap
 			.project-link.active
 				height 0
 				overflow hidden
@@ -241,8 +260,24 @@ header
 			visibility visible
 	#project-select:hover
 		#project-list:not(.hidden)
-			transform(translate3d(0,0%,0))
+			+above($md + 1)
+				transform(translate3d(0,0%,0))
+				visibility visible
+
+header.mobile-open
+	#site-title
+		display none
+	#project-select
+		width 100%
+		height 100vh
+		#current-project
+			height 100%
+		#project-list
 			visibility visible
+			transform(none)
+			z-index 100
+	
+	
 
 #wrapper
 	transition(transform, 1600ms, cubic-bezier(.72,0,.01,1))
@@ -269,10 +304,15 @@ header
 		left $padding
 		font-size 1.1rem
 		z-index 100
-		max-width 33%
+		width 26rem
+		+below($sm)
+			bottom $paddingMobile
+			left $paddingMobile
 	#slide-caption
 		left initial
 		right $padding
+		+below($md)
+			display none
 
 #slider
 	height 100vh
@@ -291,6 +331,8 @@ header
 			+below($md)
 				height auto
 				padding 0 $padding
+			+below($sm)
+				padding 0 $paddingMobile
 			img
 				display block
 				+below($md)
@@ -325,6 +367,8 @@ header
 	cursor url('../../images/close-w.png') 8 8, default
 	+below($md)
 		width 100%
+	+below($sm)
+		padding $paddingMobile
 	#infos
 		max-width 46rem
 	#footer

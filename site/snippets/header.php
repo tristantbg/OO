@@ -117,7 +117,7 @@
 		<?php foreach ($projects as $key => $project): ?>
 		
 			<div class="project-link<?php if($page->isHomepage() && $idx == 0) { echo ' active'; } else if($project->isOpen()) { echo ' active'; } ?>">
-				<a href="<?= $project->url() ?>" data-title="<?= $project->title()->html() ?>" data-target="project">
+				<a href="<?= $project->url() ?>" data-title="<?= $project->title()->html() ?>" data-id="<?= $project->uid() ?>" data-target="project">
 					<div class="project-title">
 						<h2>
 							<?= str_pad($project->sort(), 2, '0', STR_PAD_LEFT).'. '; ?>
