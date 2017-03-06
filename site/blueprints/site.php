@@ -11,11 +11,19 @@ fields:
   introbackground:
     label: Intro background
     type:  color
-    width: 1/2
-  introtext:
-    label: Intro text
+    width: 1/3
+  introtextcolor:
+    label: Intro text color
     type:  color
-    width: 1/2
+    width: 1/3
+  introtextsize:
+    label: Intro text size
+    type:  number
+    min: 2
+    max: 10
+    default: 6
+    step: .1
+    width: 1/3
   generalSettings:
     label: Site Settings
     type: headline

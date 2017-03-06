@@ -45,7 +45,7 @@ $(function() {
                         app.goIndex();
                     }
                 });
-                $body.on('touchend', '#current-project', function(event) {
+                $body.on('click touchend', '#current-project', function(event) {
                     if (isMobile) {
                         event.preventDefault();
                         $header.addClass('mobile-open');

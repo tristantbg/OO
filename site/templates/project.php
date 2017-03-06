@@ -45,6 +45,25 @@
 	
 	<div id="project-description">
 		<?= $page->text()->kt() ?>
+		<div id="share-buttons">
+				Share&nbsp;
+				<ul>
+					<li>
+						<a href="http://www.facebook.com/sharer.php?u=<?= rawurlencode ($page->url()); ?>" target="blank" title="Share on Facebook">
+							Fb.
+						</a>
+					</li>
+					<li>
+						<a href="https://pinterest.com/pin/create/button/?url=<?= rawurlencode ($page->url()); ?>&media=&description=<?= rawurlencode ($site->title().' | '.$page->title()); ?>" target="blank" title="Share on Pinterest">
+							Pin.
+						</a>
+					</li>
+					<li>
+						<a href="https://twitter.com/intent/tweet?source=webclient&text=<?= rawurlencode($site->title().' | '.$page->title()); ?>%20<?= rawurlencode($page->url()); ?>" target="blank" title="Tweet this">Tw.</a>
+					</li>
+				</ul>
+
+		</div>
 	</div>
 
 	<div id="slide-caption"></div>

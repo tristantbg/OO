@@ -237,7 +237,7 @@ header
 				padding $paddingMobile 0 0 $paddingMobile
 		#project-list
 			transition(all, 800ms)
-			transform(translate3d(0,-100%,0))
+			transform(translateY(-100%) translateZ(0))
 			visibility hidden
 			position absolute
 			width 100%
@@ -256,12 +256,12 @@ header
 				height 0
 				overflow hidden
 		#project-list.is-visible
-			transform(translate3d(0,0%,0))
+			transform(translateY(0%) translateZ(0))
 			visibility visible
 	#project-select:hover
 		#project-list:not(.hidden)
 			+above($md + 1)
-				transform(translate3d(0,0%,0))
+				transform(translateY(0%) translateZ(0))
 				visibility visible
 
 header.mobile-open
@@ -286,7 +286,7 @@ header.mobile-open
 	left 0
 	height 100vh
 	width 100%
-	transform(translate3d(0,100vh,0))
+	transform(translateY(100vh) translateZ(0))
 
 #container
 	transition(background-color, 400ms, ease)
@@ -298,6 +298,27 @@ header.mobile-open
 	z-index 0
 	.inner
 		transition(opacity, 300ms)
+	#share-buttons
+		cursor pointer
+		padding-left 1em
+		position relative
+		+below($md)
+			display none
+		ul
+			display none
+			li
+				display inline-block
+				margin 0 .2em
+	#share-buttons:hover
+		ul
+			display inline-block
+	#share-buttons::before
+		content '+'
+		position absolute
+		top -.1em
+		left 0
+	#share-buttons:hover::before
+		content '-'
 	#project-description, #slide-caption
 		position absolute
 		bottom $padding
@@ -351,7 +372,7 @@ header.mobile-open
 
 #about
 	transition(transform, 500ms)
-	transform(translate3d(100%,0,0))
+	transform(translateX(100%) translateZ(0))
 	width 50%
 	height 100%
 	position fixed
@@ -385,4 +406,4 @@ header.mobile-open
 	
 
 #about.visible
-	transform(translate3d(0%,0,0))
+	transform(translateX(0%) translateZ(0))

@@ -62,8 +62,9 @@
 		body, #loader, #intro {
 			background-color:<?= $site->introbackground() ?>;
 		}
-		#intro {
-			color:<?= $site->introtext() ?>;
+		#intro span{
+			font-size: <?= $site->introtextsize() ?>vw;
+			color:<?= $site->introtextcolor() ?>;
 		}
 	</style>
 
