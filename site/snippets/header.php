@@ -37,9 +37,20 @@
 	<?php endif ?>
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="<?= html($page->url()) ?>" />
-	<?php if($page->content()->name() == "project"): ?>
+	<?php if($page->template() == "project"): ?>
 		<?php if (!$page->featured()->empty()): ?>
-			<meta property="og:image" content="<?= resizeOnDemand($page->image($page->featured()), 1200) ?>"/>
+			<meta property="og:image" content="<?= resizeOnDemand($page->featured()->toFile(), 1200) ?>"/>
+			<?php foreach ($page->medias()->toStructure() as $key => $image): ?>
+				<?php if ($key < 5): ?>
+					<meta property="og:image" content="<?= resizeOnDemand($image->toFile(), 1200) ?>"/>
+				<?php endif ?>
+			<?php endforeach ?>
+		<?php else: ?>
+			<?php foreach ($page->medias()->toStructure() as $key => $image): ?>
+				<?php if ($key < 5): ?>
+					<meta property="og:image" content="<?= resizeOnDemand($image->toFile(), 1200) ?>"/>
+				<?php endif ?>
+			<?php endforeach ?>
 		<?php endif ?>
 	<?php else: ?>
 		<?php if(!$site->ogimage()->empty()): ?>
@@ -140,7 +151,7 @@
 	</a>
 </header>
 
-<div id="about">
+<div id="about"<?php e($page->template() == "about", ' class="visible"') ?>>
 <?php $about = $pages->find('about') ?>
 	<div id="infos">
 		<div id="site-description"><?= $about->text()->kt() ?></div>

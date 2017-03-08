@@ -22,7 +22,7 @@ fields:
     label: Title
     type:  text
     validate:
-      maxLength: 16
+      maxLength: 25
     width: 3/4
   date:
     label: Year

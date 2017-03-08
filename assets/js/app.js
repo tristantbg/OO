@@ -4,7 +4,7 @@ var width = $(window).width(),
     isMobile = false,
     content,
     flkty,
-    $root = '/oisin';
+    $root = '/';
 $(function() {
     var app = {
         init: function() {
