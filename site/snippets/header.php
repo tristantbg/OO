@@ -70,7 +70,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script>window.jQuery || document.write('<script src="<?= url('assets/js/vendor/jquery.min.js') ?>">\x3C/script>')</script>
 	<style>
-		body, #loader, #intro {
+		html, body, #loader, #intro {
 			background-color:<?= $site->introbackground() ?>;
 		}
 		#intro span{
